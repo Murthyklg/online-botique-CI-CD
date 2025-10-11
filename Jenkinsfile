@@ -1,14 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        KUBECONFIG_CREDENTIAL_ID = 'k8-token' // Jenkins credential ID
-    }
-
+   
     stages {
         stage('Deploy To Kubernetes') {
             steps {
-                withKubeConfig([credentialsId: "${env.k8-token"]) {
+               kubeconfig(credentialsId: 'k8-token', serverUrl: 'https://2F94A4306FAD26A96F10D35D827BFE25.gr7.us-east-1.eks.amazonaws.com') {
                     sh 'kubectl apply -f deployment-service.yml'
                 }
             }
